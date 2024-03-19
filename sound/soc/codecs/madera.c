@@ -14,6 +14,9 @@
 #include <sound/pcm.h>
 #include <sound/pcm_params.h>
 #include <sound/tlv.h>
+#ifdef CONFIG_MORO_SOUND
+#include "moro_sound.h"
+#endif
 
 #include <linux/irqchip/irq-madera.h>
 #include <linux/mfd/madera/core.h>
@@ -168,6 +171,10 @@ static void madera_spin_sysclk(struct madera_priv *priv)
 	struct madera *madera = priv->madera;
 	unsigned int val;
 	int ret, i;
+
+#ifdef CONFIG_MORO_SOUND
+	moro_sound_hook_madera_pcm_probe(madera->regmap);
+#endif
 
 	/* Skip this if the chip is down */
 	if (pm_runtime_suspended(madera->dev))
