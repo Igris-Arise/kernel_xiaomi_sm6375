@@ -19,7 +19,6 @@ KERNEL_CMDLINE="ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- O=out LLVM=1"
     
 #Zip the kernel    
 cp out/arch/arm64/boot/Image $(pwd)/AnyKernel3
-cp out/arch/arm64/boot/dts/vendor/qcom/blair.dtb $(pwd)/AnyKernel3
-cd AnyKernel3 && mv blair.dtb dtb && zip -r9 Rashoumon_veux_$(date +"%Y-%m-%d").zip *
+cd AnyKernel3 && zip -r9 Rashoumon_veux_$(date +"%Y-%m-%d").zip *
 
 echo "Done!"

@@ -3,6 +3,14 @@
 #error "Please don't include <linux/compiler-clang.h> directly, include <linux/compiler.h> instead."
 #endif
 
+#define CLANG_VERSION (__clang_major__ * 10000	\
+		     + __clang_minor__ * 100	\
+		     + __clang_patchlevel__)
+
+#if CLANG_VERSION < 110000
+# error Sorry, your version of Clang is too old - please use 11.0.0 or newer.
+#endif
+
 /* Compiler specific definitions for Clang compiler */
 
 #define uninitialized_var(x) x = *(&(x))

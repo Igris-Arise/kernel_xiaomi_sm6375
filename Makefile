@@ -816,6 +816,10 @@ KBUILD_CFLAGS += $(call cc-disable-warning, unused-const-variable)
 # These result in bogus false positives
 KBUILD_CFLAGS += $(call cc-disable-warning, dangling-pointer)
 
+ifdef CONFIG_LD_IS_LLD
+KBUILD_LDFLAGS += -O2
+endif
+
 ifdef CONFIG_FRAME_POINTER
 KBUILD_CFLAGS	+= -fno-omit-frame-pointer -fno-optimize-sibling-calls
 else
@@ -932,6 +936,8 @@ CC_FLAGS_LTO_CLANG += -fvisibility=default
 
 # Limit inlining across translation units to reduce binary size
 LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
+
+LD_FLAGS_LTO_CLANG += --lto-O3
 
 KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
 KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
